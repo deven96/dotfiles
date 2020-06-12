@@ -1,0 +1,12 @@
+[user]
+	email = diretnandomnan@gmail.com
+	name = Diretnan Domnan
+[core]
+  excludesfile = /home/deven/.global_gitignore
+[alias]
+  contrib = "!git add -A && git commit -m "
+  co="!git checkout"
+  cob="!git checkout -b"
+  pf="!git push -f"
+  pullf="!git pull -f"
+  pullrequest = "!git fetch origin pull/${1}/head:${2}"
