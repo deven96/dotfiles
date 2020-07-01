@@ -44,6 +44,7 @@ Plugin 'dense-analysis/ale'
 Plugin 'fatih/vim-go'
 Plugin 'mzlogin/vim-markdown-toc'
 Plugin 'kristijanhusak/vim-carbon-now-sh'
+Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
@@ -53,6 +54,8 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'christoomey/vim-system-copy'
 Plugin 'vim-airline/vim-airline'
 Plugin 'mileszs/ack.vim'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'zivyangll/git-blame.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -83,6 +86,8 @@ let g:NERDTreeChDirMode=2
 let g:javascript_plugin_jsdoc = 1
 " Editor Configuration
 set nu
+" Set relative line numbering
+set relativenumber
 " show existing tab with 4 spaces width
 set tabstop=2
 " when indenting with '>', use 4 spaces width
@@ -90,10 +95,13 @@ set shiftwidth=2
 " On pressing tab, insert 4 spaces
 set expandtab
 set omnifunc=syntaxcomplete#Complete
-"
+" replace internal grep
+set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 " Fluid Edit my .vimrc
 nnoremap <leader>ev :split $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
+" git blame edit
+nnoremap <Leader>gb :<C-u>call gitblame#echo()<CR>
 " Map javascipt autocomplete to ctrl-J"
 imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
 smap <C-J> <Plug>snipMateNextOrTrigger
@@ -111,11 +119,18 @@ noremap <Leader>P "+p
 nnoremap <Leader>gs :G<CR>
 nnoremap <Leader>gj :diffget //3<CR>
 nnoremap <Leader>gf :diffget //2<CR>
-
+" FZF mappings
+" Leader P for searching for files
+nnoremap <Leader>p :Files<CR>
+" Leader F for searching within file
+nnoremap <Leader>f :Rg<CR>
 " Set this variable to 1 to fix files when you save them.
-let b:ale_fixers = {'python': ['isort', 'autopep8'], 'javascript': ['xo']}
-let b:ale_linters = {'python': ['pylint'], 'javascript': ['xo']}
-let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+      \ 'python': ['isort', 'autopep8'], 
+      \ 'javascript': ['prettier', 'eslint'],
+      \}
+let g:ale_linters = {'python': ['pylint'], 'javascript': ['eslint']}
+"let g:ale_fix_on_save = 1
 let g:airline#extensions#ale#enabled = 1
 
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
