@@ -75,7 +75,6 @@ let g:system_copy#copy_command='xclip -sel clipboard'
 let g:system_copy#paste_command='xclip -sel clipboard -o'
 " NERDTree Config
 let g:NERDTreeWinPos = "left"
-autocmd vimenter * NERDTree
 let g:nerdtree_tabs_open_on_console_startup=1
 map <Leader><Tab> <plug>NERDTreeTabsToggle<CR>
 " NERD commenter Config
@@ -115,6 +114,10 @@ noremap <Leader>y "*y
 noremap <Leader>p "*p
 noremap <Leader>Y "+y
 noremap <Leader>P "+p
+" nerd tree mappings
+" close vim if only NERDTree buffer is left
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+nnoremap <Leader>n :NERDTreeToggle<CR>
 "git mappings"
 nnoremap <Leader>gs :G<CR>
 nnoremap <Leader>gj :diffget //3<CR>

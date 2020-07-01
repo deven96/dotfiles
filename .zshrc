@@ -104,6 +104,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+source "$ZSH/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
 
 # User configuration
 
